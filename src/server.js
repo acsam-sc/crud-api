@@ -32,7 +32,7 @@ if (req.url === '/api/users') {
 					const newUser = { "id": uuidv4(), username, age, hobbies }
 					users.push(newUser)
 					res.statusCode = 201
-					responseWithJSON(res, users)
+					responseWithJSON(res, newUser)
 				} else {
 					responseWithError(res, 400, "Request must contain username, age and hobbies")
 				}
@@ -49,7 +49,7 @@ if (req.url === '/api/users') {
 			responseWithError(res, 404, "User doesn't exist")
 		} else {
 			res.statusCode = 200
-			responseWithJSON(res, response)
+			responseWithJSON(res, response[0])
 		}
 	}
  } else {
