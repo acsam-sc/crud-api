@@ -2,18 +2,20 @@
   "name": "crud-api",
   "version": "1.0.0",
   "description": "Task for creating simple crud-api server",
-  "main": "server.js",
+  "main": "src/server.js",
   "author": "acsam-sc",
   "engines": {
     "node": ">=20.0.0"
   },
+  "type": "module",
   "scripts": {
-    "start": "nodemon server.js"
+    "start:dev": "nodemon src/server.js"
   },
   "devDependencies": {
     "nodemon": "^3.0.3"
   },
   "dependencies": {
-    "dotenv": "^16.4.2"
+    "dotenv": "^16.4.2",
+    "uuid": "^9.0.1"
   }
 }
