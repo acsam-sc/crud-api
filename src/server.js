@@ -28,13 +28,17 @@ if (req.url === '/api/users') {
     	})
     	req.on('end', () => {
 				const { username, age, hobbies } = JSON.parse(reqBody)
-				if ( username && age && hobbies ) {
+				if ( 
+            (username && typeof username === 'string') && 
+            (age && typeof age === 'number') &&
+            (hobbies && Array.isArray(hobbies) )
+					) {
 					const newUser = { "id": uuidv4(), username, age, hobbies }
 					users.push(newUser)
 					res.statusCode = 201
 					responseWithJSON(res, newUser)
 				} else {
-					responseWithError(res, 400, "Request must contain username, age and hobbies")
+					responseWithError(res, 400, "Request must contain username(string), age(number) and hobbies(array of strings)")
 				}
     })
 	}
