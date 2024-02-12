@@ -18,3 +18,5 @@ Implemented endpoints:
     - `hobbies` — user's hobbies (`array` of `strings` or empty `array`, **required**)
 
     userId is generated on server side and shown as "id" parameter in user object.
+
+    Server port can be set in .env file(see example in .env.example)
