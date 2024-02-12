@@ -9,7 +9,7 @@
 
 Implemented endpoints:
 
-    - **GET** `api/users` is used to get all persons
+    - **GET** `api/users` is used to get all users
     - **GET** `api/users/{userId}` is used to get with userId
     - **POST** `api/users` is used to create record about new user and store it in database
     - **PUT** `api/users/{userId}` is used to update existing user
