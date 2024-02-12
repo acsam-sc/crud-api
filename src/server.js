@@ -40,43 +40,45 @@ const server = http.createServer((req, res) => {
 						responseWithError(res, 400, "Request must contain username(string), age(number) and hobbies(array of strings)")
 					}
 			})
-		} else {
-			responseWithError(res, 404, "The requested resourse doesn't exist")
 		}
 	} else if (req.url.startsWith('/api/users/')) {
 		const userId = req.url.slice(11)
 		if (!uuidValidate(userId)) {
 			responseWithError(res, 400, "User ID is not correct uuid")
 		} else if (users.filter(it => it.id === userId).length === 0) {
-			console.log()
 			responseWithError(res, 404, "User doesn't exist")
 		} else if (req.method === "GET")	{
 			const response = users.filter(it => it.id === userId)
 			responseWithJSON(res, 200, response[0])
 		} else if (req.method === "PUT") {
-		let reqBody = ''
-		req.on('data', chunk => {
-			reqBody += chunk.toString()
-		})
-		req.on('end', () => {
-			const { username, age, hobbies } = JSON.parse(reqBody)
-			if ( 
-					(username && typeof username === 'string') && 
-					(age && typeof age === 'number') &&
-					(hobbies && Array.isArray(hobbies) )
-				) {
-				const changedUser = users.filter(it => it.id === userId).map(it => { 
-					return {...it, username, age, hobbies }
-				})
-				users = users.map(it => it.id === userId ? changedUser[0] : it)
-				responseWithJSON(res, 200, changedUser[0])
-			} else {
-				responseWithError(res, 400, "Request must contain username(string), age(number) and hobbies(array of strings)")
-			}
-    })
-	} else {
-				responseWithError(res, 404, "The requested resourse doesn't exist")
+			let reqBody = ''
+			req.on('data', chunk => {
+				reqBody += chunk.toString()
+			})
+			req.on('end', () => {
+				const { username, age, hobbies } = JSON.parse(reqBody)
+				if ( 
+						(username && typeof username === 'string') && 
+						(age && typeof age === 'number') &&
+						(hobbies && Array.isArray(hobbies) )
+					) {
+					const changedUser = users.filter(it => it.id === userId).map(it => { 
+						return {...it, username, age, hobbies }
+					})
+					users = users.map(it => it.id === userId ? changedUser[0] : it)
+					responseWithJSON(res, 200, changedUser[0])
+				} else {
+					responseWithError(res, 400, "Request must contain username(string), age(number) and hobbies(array of strings)")
+				}
+			})
+		} else if (req.method === "DELETE") {
+			users = users.filter(it => it.id !== userId)
+			res.statusCode = 204
+			res.setHeader("Content-Type", "text/html")
+			res.end()
 		}
+	} else {
+		responseWithError(res, 404, "The requested resourse doesn't exist")
 	}
 })
 

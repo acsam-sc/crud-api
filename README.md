@@ -4,3 +4,17 @@
 4. Go to folder `crud-api`  
 5. To install all dependencies use [`npm install`](https://docs.npmjs.com/cli/install)  
 6. Run `npm run start:dev` in command line to start server.
+
+Implemented endpoints:
+    - **GET** `api/users` is used to get all persons
+    - **GET** `api/users/{userId}` is used to get with userId
+    - **POST** `api/users` is used to create record about new user and store it in database
+    - **PUT** `api/users/{userId}` is used to update existing user
+    - **DELETE** `api/users/{userId}` is used to delete existing user from database
+
+    **POST** and **PUT** requests must contain body with JSON, containing:
+    - `username` — user's name (`string`, **required**)
+    - `age` — user's age (`number`, **required**)
+    - `hobbies` — user's hobbies (`array` of `strings` or empty `array`, **required**)
+
+    userId is generated on server side and shown as "id" parameter in user object.
